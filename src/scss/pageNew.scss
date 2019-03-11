@@ -1,0 +1,14 @@
+@import "./partial/reset";
+@import "./partial/fonts";
+@import "./partial/animations";
+@import "./partial/mixins";
+@import "./partial/variables";
+
+.top-wrapper {
+  max-width: $maxWidth;
+  text-align: center;
+  background-color: $foxy;
+  margin: 0 auto;
+  padding: 20px;
+}
+

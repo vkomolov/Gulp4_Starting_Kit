@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "sources": [
+    "node_modules/browser-pack/_prelude.js",
+    "src/js/main.js",
+    "src/js/partial/data1.js",
+    "src/js/partial/data2.js"
+  ],
+  "names": [],
+  "mappings": "AAAA;ACAA;;AACA,IAAM,IAAI,GAAG,OAAO,CAAC,iBAAD,CAApB;;AACA,IAAM,IAAI,GAAG,OAAO,CAAC,iBAAD,CAApB;;AAEA,OAAO,CAAC,GAAR,CAAY,IAAZ;AACA,IAAI,CAAC,IAAD,CAAJ;;AAEA,IAAM,OAAO,GAAG,SAAV,OAAU,CAAC,IAAD;AAAA,SAAU,IAAI,CAAC,IAAD,CAAd;AAAA,CAAhB;;AAEA,OAAO,CAAC,IAAD,CAAP;;;ACTA;;AACA,MAAM,CAAC,OAAP,GAAiB,WAAjB;;;ACDA;;AAEA,MAAM,CAAC,OAAP,GAAiB,UAAC,IAAD,EAAU;AACvB,EAAA,OAAO,CAAC,GAAR,CAAY,IAAZ;AACH,CAFD",
+  "file": "generated.js",
+  "sourceRoot": "",
+  "sourcesContent": [
+    "(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=\"function\"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error(\"Cannot find module '\"+i+\"'\");throw a.code=\"MODULE_NOT_FOUND\",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=\"function\"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()",
+    "'use strict';\r\nconst data = require('./partial/data1');\r\nconst func = require('./partial/data2');\r\n\r\nconsole.log(data);\r\nfunc(data);\r\n\r\nconst funcRun = (data) => func(data);\r\n\r\nfuncRun(data);",
+    "'use strict';\r\nmodule.exports = 'DATA aaaa';",
+    "'use strict';\r\n\r\nmodule.exports = (text) => {\r\n    console.log(text);\r\n};"
+  ]
+}
