@@ -2,8 +2,7 @@
 Task: to compile the npm plugins in production of HTML, CSS, IMAGES and JS files.
 
 ## Feature:
-
-###### All JS files in the target source path will be separately bundled, browserified, babelified and uglified; The destination path will consist file.js.map, file.js and file.min.js;
+**All JS files in the target source path will be separately bundled, browserified, babelified and uglified; The destination path will consist file.js.map, file.js and file.min.js;**
 
 - It minimizes HTML files;
 - It compiles and minimizes SCSS files;
@@ -14,6 +13,7 @@ the each type of the image file;
 
 
 ### Getting Started:
+
 - 'gulp watch': please, init in the console for the single build of
 the target files, starting Browser and following watching of the
 files to be changed; 
@@ -22,16 +22,17 @@ the target files and starting Browser. The following changes of the
 target files will not be checked;
 
 ### Directory Structure
+
 .
-|---build
-     |---css
+|-- build
+     |-- css
         main.css        //piped with dependencies
         main.min.css    //to be linked to *.html
         pageNew.css
         pageNew.min.css //to be linked to *.html
-     |---fonts
-     |---img            //already compressed files
-     |---js
+     |-- fonts
+     |-- img            //already compressed files
+     |-- js
         main.js
         main.js.map     //mapping of js file
         main.min.js     //to be linked to *.html
@@ -40,20 +41,20 @@ target files will not be checked;
         pageNew.min.js  //to be linked to *.html
      index.html         //minimized html
      pageNew.html       //minimized html
-|---src
-     |---scss
-        |---partial
+|-- src
+     |-- scss
+        |-- partial
             _mixins.scss
             .......
         main.scss
         pageNew.scss
-     |---img         //initial image files to be compressed
-     |---js
-        |---partial
+     |-- img         //initial image files to be compressed
+     |-- js
+        |-- partial
             data1.js
             data2.js
             .......
-        |---utils
+        |-- utils
             funcCollection.js   //for gulp tasks
             pathMap.js
         main.js                 //*.js will be piped from here
@@ -66,9 +67,11 @@ package-lock.json
 README.md
 
 ### Instructions
+
 - The Browser Reloading is realized with "browser-sync": "^2.26.3"
 
 #### HTML: 
+
 Each HTML file, located in 'src/' will minimized and
 piped to 'build/';
 ##### Plugins:
@@ -79,6 +82,7 @@ piped to 'build/';
 - to minimize *.html with white space collapsing;
 
 #### CSS: 
+
 Each scss file, located in 'src/scss' (except inner
 directories), will be piped to 'build/css' as minimized 
 file (with 'min' prefix) and not minimized version
@@ -104,6 +108,7 @@ to parse CSS and add vendor prefixes to CSS rules;
 - to log the sizes of the files before and after minimizing;
 
 #### JS:
+
 Each js file, located in 'src/js' (except inner
 directories), will be piped to 'build/js' as minimized 
 file (with 'min' prefix) and not minimized version
@@ -152,6 +157,7 @@ with gulp.
 function names to reduce their size;
 
 #### IMAGES:
+
 Each image file, located in 'src/img', will be piped to 'build/img' 
 as minimized file
 
