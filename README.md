@@ -22,7 +22,7 @@ the target files and starting Browser. The following changes of the
 target files will not be checked;
 
 ### Directory Structure
-
+<pre>
 .
 |-- build
      |-- css
@@ -65,7 +65,7 @@ gulpfile.js
 package.json
 package-lock.json
 README.md
-
+</pre>
 ### Instructions
 
 - The Browser Reloading is realized with "browser-sync": "^2.26.3"
