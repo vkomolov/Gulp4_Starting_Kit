@@ -3,6 +3,8 @@
 //plugins
 let gulp = require('gulp'),
     htmlMin = require('gulp-htmlmin'),
+    glob = require('glob'),
+    path = require('path'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     watch = require('gulp-watch'),
@@ -20,48 +22,56 @@ let gulp = require('gulp'),
     imagemin = require("gulp-imagemin");
 
 // utils
-let path = require('./pathMap');
+let pathMap = require('./pathMap');
 
 exports.bundleJs = ( browserSync, watching=false ) => {
+    const files = glob.sync(pathMap.src.js);
+    console.log(files);
 
-    let bundler = browserify(path.src.js, { debug: true })
-        .transform(babelify.configure(
-            {
-                presets: ['@babel/preset-env']
-            }
-        ));
+    files.forEach(file => {
+        let fileName = path.basename(file, '.js');
 
-    if ( watching ) {
-        console.log("=> watching JS");
+        let bundler = browserify(file, { debug: true })
+            .transform(babelify.configure(
+                {
+                    presets: ['@babel/preset-env']
+                }
+            ));
 
-        let watcher = watchify(bundler);
-        watcher.on('update', () => {
-            return rebundle(watcher)
-                .pipe(browserSync.stream({once: true}));
-        });
+        if ( watching ) {
+            console.log("=> watching JS");
 
-    } else {
-        console.log('=> building JS');
-    }
+            let watcher = watchify(bundler);
+            watcher.on('update', () => {
+                rebundle(watcher, fileName)
+                    .pipe(browserSync.stream({once: true}));
+            });
+        } else {
+            console.log('=> building JS');
+        }
 
-    return rebundle(bundler)
-        .pipe(browserSync.stream({once: true}));
+        rebundle(bundler, fileName)
+            .pipe(browserSync.stream({once: true}));
+    });
 
-    function rebundle(bundler) {
+    function rebundle(bundler, fileName) {
+
+        console.log(fileName);
+
         return bundler.bundle()
             .on('error', function(err) {
                 browserSync.notify(`Browserify Error! ${err}`);
                 this.emit('end');
             })
-            .pipe(exorcist(`${path.build.js}bundle.js.map`)) //separate file
-            .pipe(source('bundle.js'))  //outcome file
+            .pipe(exorcist(`${pathMap.build.js}${fileName}.js.map`)) //separate file
+            .pipe(source(`${fileName}.js`))  //outcome file
             .pipe(buffer())             //convert streaming vinyl files
             .pipe(getSize())            //getting size before uglify()
-            .pipe(gulp.dest(path.build.js))
+            .pipe(gulp.dest(pathMap.build.js))
             .pipe(rename({suffix: ".min"})) //separate bundle.min.js
             .pipe(uglify())
             .pipe(getSize())            //getting size after uglify()
-            .pipe(gulp.dest(path.build.js))
+            .pipe(gulp.dest(pathMap.build.js))
     }
 };
 
@@ -69,7 +79,7 @@ exports.pipeHtml = ( browserSync, watching=false ) => {
     if ( watching ) {
         console.log("=> watching HTML");
 
-        watch(path.watch.html, () => {
+        watch(pathMap.watch.html, () => {
             return processHtml()
                 .pipe(browserSync.stream({once: true}));
         });
@@ -80,11 +90,11 @@ exports.pipeHtml = ( browserSync, watching=false ) => {
         .pipe(browserSync.stream({once: true}));
 
     function processHtml() {
-        return gulp.src(path.src.html)
+        return gulp.src(pathMap.src.html)
             .pipe(getSize())                //getting size before htmlMin()
             .pipe(htmlMin({ collapseWhitespace: true }))
             .pipe(getSize())            //getting size after htmlMin()
-            .pipe(gulp.dest(path.build.html));
+            .pipe(gulp.dest(pathMap.build.html));
     }
 };
 
@@ -92,7 +102,7 @@ exports.pipeStyle = ( browserSync, watching=false ) => {
     if ( watching ) {
         console.log("=> watching Style");
 
-        watch(path.watch.style, () => {
+        watch(pathMap.watch.style, () => {
             return processStyle()
                 .pipe(browserSync.stream({once: true}));
         });
@@ -103,7 +113,7 @@ exports.pipeStyle = ( browserSync, watching=false ) => {
         .pipe(browserSync.stream({once: true}));
 
     function processStyle() {
-        return gulp.src(path.src.style)
+        return gulp.src(pathMap.src.style)
             .pipe(getSize())                //getting size before processing
             .pipe(sass().on('error', sass.logError))
             .pipe(autoprefixer({
@@ -111,11 +121,11 @@ exports.pipeStyle = ( browserSync, watching=false ) => {
                 cascade: false,
                 grid: "no-autoplace"
             }))
-            .pipe(gulp.dest(path.build.style))
+            .pipe(gulp.dest(pathMap.build.style))
             .pipe(rename({suffix: ".min"})) //renaming bundle.min.css
             .pipe(cleanCSS({compatibility: 'ie8'}))
             .pipe(getSize())                //getting size after processing
-            .pipe(gulp.dest(path.build.style));
+            .pipe(gulp.dest(pathMap.build.style));
     }
 };
 
@@ -123,7 +133,7 @@ exports.pipeImg = ( browserSync, watching=false ) => {
     if ( watching ) {
         console.log("=> watching Img");
 
-        watch(path.watch.img, () => {
+        watch(pathMap.watch.img, () => {
             return processImg()
                 .pipe(browserSync.stream({once: true}));
         });
@@ -134,9 +144,9 @@ exports.pipeImg = ( browserSync, watching=false ) => {
         .pipe(browserSync.stream({once: true}));
 
     function processImg() {
-        return gulp.src(path.src.img)
+        return gulp.src(pathMap.src.img)
             .pipe(getSize())                //getting size before processing
-            .pipe(newer(path.build.img))    //checking for newer files
+            .pipe(newer(pathMap.build.img))    //checking for newer files
             .pipe(imagemin(
                 [
                     imagemin.gifsicle({ interlaced: true }),
@@ -153,6 +163,6 @@ exports.pipeImg = ( browserSync, watching=false ) => {
                 ]
             ))
             .pipe(getSize())                //getting size after processing
-            .pipe(gulp.dest(path.build.img));
+            .pipe(gulp.dest(pathMap.build.img));
     }
 };

@@ -41,34 +41,42 @@ gulp.task('watch', gulp.series(
 gulp.task('default', gulp.parallel('watch'));
 
 
-function buildJs() {
-    return init.bundleJs(browserSync);
+function buildJs(cb) {
+    init.bundleJs(browserSync);
+    cb();
 }
 
-function watchJs() {
-    return init.bundleJs(browserSync, true);
+function watchJs(cb) {
+    init.bundleJs(browserSync, true);
+    cb();
 }
 
-function buildHtml() {
-    return init.pipeHtml(browserSync);
+function buildHtml(cb) {
+    init.pipeHtml(browserSync);
+    cb();
 }
 
-function watchHtml() {
-    return init.pipeHtml(browserSync, true);
+function watchHtml(cb) {
+    init.pipeHtml(browserSync, true);
+    cb();
 }
 
-function buildStyles() {
-    return init.pipeStyle(browserSync);
+function buildStyles(cb) {
+    init.pipeStyle(browserSync);
+    cb();
 }
 
-function watchStyles() {
-    return init.pipeStyle(browserSync, true);
+function watchStyles(cb) {
+    init.pipeStyle(browserSync, true);
+    cb();
 }
 
-function buildImg() {
-    return init.pipeImg(browserSync);
+function buildImg(cb) {
+    init.pipeImg(browserSync);
+    cb();
 }
 
-function watchImg() {
-    return init.pipeImg(browserSync, true);
+function watchImg(cb) {
+    init.pipeImg(browserSync, true);
+    cb();
 }

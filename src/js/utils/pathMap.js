@@ -9,8 +9,7 @@ module.exports = {
     },
     src: {
         html: './src/*.html',
-        js: './src/js/main.js',
-        //style: './src/scss/main.scss',
+        js: './src/js/*.js',
         style: './src/scss/*.scss',
         img: './src/img/*'
     },
