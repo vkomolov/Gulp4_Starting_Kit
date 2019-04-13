@@ -11,7 +11,14 @@ let init = require('./src/js/utils/funcCollection');
 
 //scripts
 gulp.task('clean', function (cb) {
-    del([path.clean.html, path.clean.js, path.clean.style], cb());
+    del(
+        [
+            path.clean.html,
+            path.clean.img,
+            path.clean.js,
+            path.clean.style
+        ], cb()
+    );
 });
 
 gulp.task('serve', function (cb) {

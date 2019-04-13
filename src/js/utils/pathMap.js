@@ -22,6 +22,7 @@ module.exports = {
     clean: {
         html: './build/*.html',
         style: './build/css/',
-        js: './build/js/'
+        js: './build/js/',
+        img: './build/img/*'
     }
 };
