@@ -166,3 +166,23 @@ exports.pipeImg = ( browserSync, watching=false ) => {
             .pipe(gulp.dest(pathMap.build.img));
     }
 };
+
+exports.pipePhp = ( browserSync, watching=false ) => {
+    if ( watching ) {
+        console.log("=> watching php");
+
+        watch(pathMap.watch.php, () => {
+            return supplyPhp()
+                .pipe(browserSync.stream({once: true}));
+        });
+    } else {
+        console.log("=> building PHP");
+    }
+    return supplyPhp()
+        .pipe(browserSync.stream({once: true}));
+
+    function supplyPhp() {
+        return gulp.src(pathMap.src.php)
+            .pipe(gulp.dest(pathMap.build.php));
+    }
+};

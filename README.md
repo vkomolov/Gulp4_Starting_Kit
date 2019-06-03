@@ -1,13 +1,22 @@
 # Gulp 4 Front-End package "gulp": "^4.0.0"
-Task: to compile the npm plugins in production of HTML, CSS, IMAGES and JS files.
+Task: to compile the npm plugins in production of HTML, CSS, JS, PHP and IMAGES files.
 
 ## Feature:
-**All JS files in the target source path will be separately bundled, browserified, babelified and uglified; The destination path will consist file.js.map, file.js and file.min.js;**
+- It compiles and minimizes JS files, using "Browserify" 
+in combination with "Watchify", "Babelify" and "Uglify" plugins;
+**All JS files in the target source path will be separately bundled, browserified, babelified and uglified; 
+The destination path will consist file.js.map, file.js and file.min.js; 
+!!All inner folders of the source path should contain only supporting
+JS files, which are exported to the main JS files, located in the target
+source path. The "build" JS destination will contain only main JS files bundled**
 
 - It minimizes HTML files;
 - It compiles and minimizes SCSS files;
-- It compiles and minimizes JS files, using "Browserify" 
-in combination with "Watchify", "Babelify" and "Uglify" plugins;
+**!!All inner SCSS folders of the main source path should contain only
+supporting SCSS files, which are exported to the main SCSS files, located
+in the main source path. The "build" CSS destination will contain only
+main CSS files with relations bundled.**
+
 - it compresses the image files with special rules for
 the each type of the image file;
 
@@ -51,7 +60,7 @@ target files will not be checked;
      |-- img         //initial image files to be compressed
      |-- js
         |-- partial
-            data1.js
+            funcs.js
             data2.js
             .......
         |-- utils
@@ -72,8 +81,7 @@ README.md
 
 #### HTML: 
 
-Each HTML file, located in 'src/' will minimized and
-piped to 'build/';
+Each HTML file, located in 'src/' will be minimized and piped to 'build/';
 ##### Plugins:
 ###### "gulp-filesize": "0.0.6" 
 - to log the sizes of the files before and after minimizing;

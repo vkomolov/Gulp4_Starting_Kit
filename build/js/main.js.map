@@ -3,17 +3,19 @@
   "sources": [
     "node_modules/browser-pack/_prelude.js",
     "src/js/main.js",
-    "src/js/partial/data1.js",
-    "src/js/partial/data2.js"
+    "src/js/partial/addTest.js",
+    "src/js/partial/funcs.js",
+    "src/js/partial/test.js"
   ],
   "names": [],
-  "mappings": "AAAA;ACAA;;AACA,IAAM,IAAI,GAAG,OAAO,CAAC,iBAAD,CAApB;;AACA,IAAM,IAAI,GAAG,OAAO,CAAC,iBAAD,CAApB;;AAEA,OAAO,CAAC,GAAR,CAAY,IAAZ;AACA,IAAI,CAAC,IAAD,CAAJ;;AAEA,IAAM,OAAO,GAAG,SAAV,OAAU,CAAC,IAAD;AAAA,SAAU,IAAI,CAAC,IAAD,CAAd;AAAA,CAAhB;;AAEA,OAAO,CAAC,IAAD,CAAP;;;ACTA;;AACA,MAAM,CAAC,OAAP,GAAiB,WAAjB;;;ACDA;;AAEA,MAAM,CAAC,OAAP,GAAiB,UAAC,IAAD,EAAU;AACvB,EAAA,OAAO,CAAC,GAAR,CAAY,IAAZ;AACH,CAFD",
+  "mappings": "AAAA;ACAA;;AACA,IAAM,KAAK,GAAG,OAAO,CAAC,iBAAD,CAArB;;AACA,IAAM,OAAO,GAAG,OAAO,CAAC,gBAAD,CAAvB;;AACA,IAAM,OAAO,GAAG,OAAO,CAAC,mBAAD,CAAvB;;AAEA,OAAO,CAAC,GAAR,CAAY,KAAK,CAAC,IAAN,EAAZ;AACA,OAAO,CAAC,GAAR,CAAY,OAAO,CAAC,KAAR,EAAZ;AACA,OAAO,CAAC,GAAR,CAAY,OAAO,CAAC,OAAR,EAAZ;;;ACPA;;AACA,MAAM,CAAC,OAAP,GAAiB;AACb,EAAA,OAAO,EAAE,mBAAM;AACX,WAAO,4BAAP;AACH;AAHY,CAAjB;;;ACDA;;AACA,MAAM,CAAC,OAAP,GAAiB;AACb,EAAA,IAAI,EAAE,gBAAM;AACR,WAAO,uBAAP;AACH;AAHY,CAAjB;;;ACDA;;AACA,MAAM,CAAC,OAAP,GAAiB;AACb,EAAA,KAAK,EAAE,iBAAM;AACT,WAAO,yBAAP;AACH;AAHY,CAAjB",
   "file": "generated.js",
   "sourceRoot": "",
   "sourcesContent": [
     "(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=\"function\"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error(\"Cannot find module '\"+i+\"'\");throw a.code=\"MODULE_NOT_FOUND\",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=\"function\"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()",
-    "'use strict';\r\nconst data = require('./partial/data1');\r\nconst func = require('./partial/data2');\r\n\r\nconsole.log(data);\r\nfunc(data);\r\n\r\nconst funcRun = (data) => func(data);\r\n\r\nfuncRun(data);",
-    "'use strict';\r\nmodule.exports = 'DATA aaaa';",
-    "'use strict';\r\n\r\nmodule.exports = (text) => {\r\n    console.log(text);\r\n};"
+    "'use strict';\r\nconst funcs = require('./partial/funcs');\r\nconst testing = require('./partial/test');\r\nconst newfunc = require('./partial/addTest');\r\n\r\nconsole.log(funcs.test());\r\nconsole.log(testing.hello());\r\nconsole.log(newfunc.addTest());",
+    "'use strict';\r\nmodule.exports = {\r\n    addTest: () => {\r\n        return \"message from addTest.js!!!\";\r\n    }\r\n};",
+    "'use strict';\r\nmodule.exports = {\r\n    test: () => {\r\n        return \"message from funcs.js\";\r\n    }\r\n};",
+    "'use strict';\r\nmodule.exports = {\r\n    hello: () => {\r\n        return \"message f///rom test.js\";\r\n    }\r\n};"
   ]
 }

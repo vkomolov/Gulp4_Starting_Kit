@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -49,18 +50,32 @@ ul {
   list-style-type: none; }
 
 @font-face {
-  font-family: "PT_Sans-Web-Regular";
-  src: local("PT_Sans-Web-Regular");
-  url: "../assets/fonts/PT_Sans-Web-Regular.ttf" format("truetype");
+  font-family: "Georgia-Regular";
   font-weight: normal;
-  font-style: normal; }
+  font-style: normal;
+  src: local("☺");
+  src: url("../fonts/Georgia-Regular.ttf") format("truetype"); }
 
 @font-face {
-  font-family: "Georgia";
-  src: local("Georgia");
-  url: "../assets/fonts/Georgia.ttf" format("truetype");
+  font-family: "Georgia-Bold";
+  font-weight: bold;
+  font-style: normal;
+  src: local("☺");
+  src: url("../fonts/Georgia-Bold.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Georgia-Italic";
   font-weight: normal;
-  font-style: normal; }
+  font-style: italic;
+  src: local("☺");
+  src: url("../fonts/Georgia-Italic.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "StardosStencil-Bold";
+  font-weight: bold;
+  font-style: normal;
+  src: local("☺");
+  src: url("../fonts/StardosStencil-Bold.ttf") format("truetype"); }
 
 @-webkit-keyframes popup {
   0% {

@@ -6,8 +6,8 @@ let gulp = require('gulp'),
     del = require('del');
 
 // utils
-let path = require('./src/js/utils/pathMap');
-let init = require('./src/js/utils/funcCollection');
+let path = require('./src/utils/pathMap');
+let init = require('./src/utils/funcCollection');
 
 //scripts
 gulp.task('clean', function (cb) {
@@ -16,7 +16,8 @@ gulp.task('clean', function (cb) {
             path.clean.html,
             path.clean.img,
             path.clean.js,
-            path.clean.style
+            path.clean.style,
+            path.clean.php
         ], cb()
     );
 });
@@ -33,14 +34,14 @@ gulp.task('serve', function (cb) {
 
 gulp.task('build', gulp.series(
         'clean',
-        gulp.parallel(buildJs, buildHtml, buildStyles, buildImg),
+        gulp.parallel(buildJs, buildHtml, buildStyles, buildImg, buildPhp),
         'serve'
     )
 );
 
 gulp.task('watch', gulp.series(
         'clean',
-        gulp.parallel(watchJs, watchHtml, watchStyles, watchImg),
+        gulp.parallel(watchJs, watchHtml, watchStyles, watchImg, watchPhp),
         'serve'
     )
 );
@@ -85,5 +86,15 @@ function buildImg(cb) {
 
 function watchImg(cb) {
     init.pipeImg(browserSync, true);
+    cb();
+}
+
+function buildPhp(cb) {
+    init.pipePhp(browserSync);
+    cb();
+}
+
+function watchPhp(cb) {
+    init.pipePhp(browserSync, true);
     cb();
 }

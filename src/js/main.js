@@ -1,10 +1,4 @@
 'use strict';
-const data = require('./partial/data1');
-const func = require('./partial/data2');
+const funcs = require('./partial/funcs');
 
-console.log(data);
-func(data);
-
-const funcRun = (data) => func(data);
-
-funcRun(data);
+console.log(funcs.test());

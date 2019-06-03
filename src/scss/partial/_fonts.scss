@@ -1,15 +1,39 @@
 @font-face {
-  font-family: "PT_Sans-Web-Regular";
-  src: local("PT_Sans-Web-Regular");
-  url:("../assets/fonts/PT_Sans-Web-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font: {
+    family: "Georgia-Regular";
+    weight: normal;
+    style: normal;
+  }
+  src: local('☺');
+  src: url('../fonts/Georgia-Regular.ttf') format("truetype");
 }
 
 @font-face {
-  font-family: "Georgia";
-  src: local("Georgia");
-  url:("../assets/fonts/Georgia.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font: {
+    family: "Georgia-Bold";
+    weight: bold;
+    style: normal;
+  }
+  src: local('☺');
+  src: url("../fonts/Georgia-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font: {
+    family: "Georgia-Italic";
+    weight: normal;
+    style: italic;
+  }
+  src: local('☺');
+  src: url("../fonts/Georgia-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font: {
+    family: "StardosStencil-Bold";
+    weight: bold;
+    style: normal;
+  }
+  src: local('☺');
+  src: url("../fonts/StardosStencil-Bold.ttf") format("truetype");
 }

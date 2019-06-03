@@ -14,7 +14,7 @@ $flex-box-col-center: column, center, center;
   align-items: $align;
 }
 
-@mixin transition($property: all, $time: 0.2s) {
+@mixin transition($property: all, $time: 0.3s) {
   transition: $property $time ease-in-out;
 }
 
@@ -30,20 +30,8 @@ $flex-box-col-center: column, center, center;
   text-shadow: $dim $dim $shadow $color ;
 }
 
-@mixin box-shadow($dim:"2px", $shadow:"5px", $color: rgba(0,0,0,0.8)) {
+@mixin box-shadow($dim, $shadow, $color: rgba(0,0,0,0.8)) {
   box-shadow: $dim $dim $shadow $color;
-}
-
-@mixin image-container($param: "width") {
-  img {
-    display: block;
-    #{$param}: 100%;
-    @if $param == "width" {
-      height: auto;
-    } @else {
-      width: auto;
-    }
-  }
 }
 
 
