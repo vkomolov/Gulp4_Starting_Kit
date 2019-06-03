@@ -37,39 +37,29 @@ target files will not be checked;
      |-- css
         main.css        //piped with dependencies
         main.min.css    //to be linked to *.html
-        pageNew.css
-        pageNew.min.css //to be linked to *.html
      |-- fonts
      |-- img            //already compressed files
      |-- js
         main.js
         main.js.map     //mapping of js file
         main.min.js     //to be linked to *.html
-        pageNew.js
-        pageNew.js.map
-        pageNew.min.js  //to be linked to *.html
      index.html         //minimized html
-     pageNew.html       //minimized html
 |-- src
      |-- scss
         |-- partial
             _mixins.scss
             .......
         main.scss
-        pageNew.scss
      |-- img         //initial image files to be compressed
      |-- js
         |-- partial
             funcs.js
-            data2.js
             .......
-        |-- utils
-            funcCollection.js   //for gulp tasks
-            pathMap.js
         main.js                 //*.js will be piped from here
-        pageNew.js
+     |-- utils
+         funcCollection.js   //for gulp tasks
+         pathMap.js     
      index.html                 //*.html will be piped from here
-     pageNew.html
 gulpfile.js
 package.json
 package-lock.json
