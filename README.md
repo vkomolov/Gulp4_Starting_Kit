@@ -22,6 +22,7 @@ the each type of the image file;
 
 
 ### Getting Started:
+- just clone the rep, then run 'npm install' for dependencies;
 
 - 'gulp watch': please, init in the console for the single build of
 the target files, starting Browser and following watching of the
