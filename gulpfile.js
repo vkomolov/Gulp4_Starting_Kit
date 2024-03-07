@@ -11,6 +11,7 @@ import gulpSass from "gulp-sass";
 import cssnano from "gulp-cssnano";
 import uglify from "gulp-uglify";
 import plumber from "gulp-plumber";
+import notify from "gulp-notify";
 import panini from "panini";
 import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
 import { deleteAsync } from "del";
@@ -24,7 +25,7 @@ const { src, dest } = gulp;
 const srcPath = "src/";
 const distPath = "dist/"
 
-const path = {
+const pathData = {
   build: {
     html: distPath,
     css: `${ distPath }assets/css/`,
@@ -36,7 +37,6 @@ const path = {
     html: `${ srcPath }*.html`,
     css: `${ srcPath }assets/scss/*.scss`,
     js: `${ srcPath }assets/js/*.js`,
-    //images: `${ srcPath }assets/images/**/*`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
     fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf}`,
   },
@@ -50,19 +50,35 @@ const path = {
   clean: `./${ distPath }`
 };
 
+export function serve() {
+  browserSync.init({
+    server: {
+      browser: "chrome",
+      baseDir: `./${ distPath }`
+    },
+  })
+}
+
 export function handleHtml() {
-  return src(path.src.html, { base: srcPath })
-      .pipe(plumber())
-      .pipe(dest(path.build.html));
+  return src(pathData.src.html, { base: srcPath })
+      //.pipe(plumber())
+      .pipe(plumber({
+        errorHandler: getErrorHandler("HTML Error")
+      }))
+      .pipe(dest(pathData.build.html))
+      .pipe(browserSync.reload({ stream: true }));
 }
 
 export function handleCss() {
-  return src(path.src.css, { base: `${ srcPath }assets/scss/` })
-      .pipe(plumber())
+  return src(pathData.src.css, { base: `${ srcPath }assets/scss/` })
+      //.pipe(plumber())
+      .pipe(plumber({
+        errorHandler: getErrorHandler("SCSS Error")
+      }))
       .pipe(sass())
       .pipe(autoprefixer())
       .pipe(cssbeautify())
-      .pipe(dest(path.build.css))
+      .pipe(dest(pathData.build.css))
       .pipe(cssnano({
         zindex: false,
         discardComments: {
@@ -74,24 +90,29 @@ export function handleCss() {
         suffix: ".min",
         extname: ".css"
       }))
-      .pipe(dest(path.build.css));
+      .pipe(dest(pathData.build.css))
+      .pipe(browserSync.reload({ stream: true }));
 }
 
 export function handleJs() {
-  return src(path.src.js, { base: `${ srcPath }assets/js/` })
-      .pipe(plumber())
+  return src(pathData.src.js, { base: `${ srcPath }assets/js/` })
+      //.pipe(plumber())
+      .pipe(plumber({
+        errorHandler: getErrorHandler("JS Error")
+      }))
       .pipe(rigger())
-      .pipe(dest(path.build.js))
+      .pipe(dest(pathData.build.js))
       .pipe(uglify())
       .pipe(rename({
         suffix: ".min",
         extname: ".js"
       }))
-      .pipe(dest(path.build.js));
+      .pipe(dest(pathData.build.js))
+      .pipe(browserSync.reload({ stream: true }));
 }
 
 export function handleImages() {
-  return src(path.src.images, { base: `${ srcPath }assets/images/` })
+  return src(pathData.src.images, { base: `${ srcPath }assets/images/` })
       .pipe(imagemin([
         gifsicle({interlaced: true}),
         mozjpeg({quality: 75, progressive: true}),
@@ -109,19 +130,52 @@ export function handleImages() {
           ]
         })
       ]))
-      .pipe(dest(path.build.images));
+      .pipe(dest(pathData.build.images))
+      .pipe(browserSync.reload({ stream: true }));
+}
+
+export function handleFonts() {
+  return src(pathData.src.fonts, { base: `${ srcPath }assets/fonts/` })
+      .pipe(browserSync.reload({ stream: true }));
+}
+
+export async function clean() {
+  return await del(pathData.clean);
+}
+
+export const buildFiles = gulp.series(
+    clean,
+    gulp.parallel(
+        handleHtml,
+        handleCss,
+        handleJs,
+        handleImages,
+        handleFonts
+    )
+);
+
+//export const watch = gulp.series(buildFiles, serve, watchFiles);
+export const watch = gulp.series(buildFiles, gulp.parallel(serve, watchFiles));
+
+function watchFiles() {
+  gulp.watch(pathData.watch.html, handleHtml);
+  gulp.watch(pathData.watch.css, handleCss);
+  gulp.watch(pathData.watch.js, handleJs);
+  gulp.watch(pathData.watch.images, handleImages);
+  gulp.watch(pathData.watch.fonts, handleFonts);
 }
 
 async function del(path) {
   return await deleteAsync(path);
 }
 
+function getErrorHandler(errorTitle="Error") {
+  return function (err) {
+    notify.onError({
+      title: errorTitle,
+      message: "Error: <%- error.message %>",
 
-
-/*import('gulp-autoprefixer').then(autoprefixer => {
-  // теперь autoprefixer доступен здесь
-  exports.html = html;
-});*/
-
-//exports.html = html;
-
+    })(err);
+    this.emit("end");
+  }
+}

@@ -6,5 +6,5 @@ document.addEventListener("DOMContentLoaded", () => {
   const rootWrapper = document.getElementById("total-wrapper");
   rootWrapper.appendChild(Elem1).appendChild(Elem2);
 
-  log(rootWrapper, "rootWrapper: ");
+  log(rootWrapper, "root-wrapper: ");
 })
