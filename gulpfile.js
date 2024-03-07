@@ -1,100 +1,127 @@
 'use strict';
 
-//plugins
-let gulp = require('gulp'),
-    browserSync = require("browser-sync").create(),
-    del = require('del');
+import gulp from "gulp";
+import rigger from "gulp-rigger";
+import autoprefixer from "gulp-autoprefixer";
+import cssbeautify from "gulp-cssbeautify";
+import removeCssComments from "gulp-strip-css-comments";
+import rename from "gulp-rename";
+import * as sassAux from "sass";
+import gulpSass from "gulp-sass";
+import cssnano from "gulp-cssnano";
+import uglify from "gulp-uglify";
+import plumber from "gulp-plumber";
+import panini from "panini";
+import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
+import { deleteAsync } from "del";
+import sync from "browser-sync";
 
-// utils
-let path = require('./src/utils/pathMap');
-let init = require('./src/utils/funcCollection');
+const browserSync = sync.create();
+const sass = gulpSass(sassAux);
 
-//scripts
-gulp.task('clean', function (cb) {
-    del(
-        [
-            path.clean.html,
-            path.clean.img,
-            path.clean.js,
-            path.clean.style,
-            path.clean.php
-        ], cb()
-    );
-});
+const { src, dest } = gulp;
 
-gulp.task('serve', function (cb) {
-    browserSync.init({
-        server: {
-            baseDir: path.build.html
-        },
-        port: 3000
-    });
-    cb();
-});
+const srcPath = "src/";
+const distPath = "dist/"
 
-gulp.task('build', gulp.series(
-        'clean',
-        gulp.parallel(buildJs, buildHtml, buildStyles, buildImg, buildPhp),
-        'serve'
-    )
-);
+const path = {
+  build: {
+    html: distPath,
+    css: `${ distPath }assets/css/`,
+    js: `${ distPath }assets/js/`,
+    images: `${ distPath }assets/images/`,
+    fonts: `${ distPath }assets/fonts/`,
+  },
+  src: {
+    html: `${ srcPath }*.html`,
+    css: `${ srcPath }assets/scss/*.scss`,
+    js: `${ srcPath }assets/js/*.js`,
+    //images: `${ srcPath }assets/images/**/*`,
+    images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
+    fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf}`,
+  },
+  watch: {
+    html: `${ srcPath }*.html`,
+    css: `${ srcPath }assets/scss/*.scss`,
+    js: `${ srcPath }assets/js/*.js`,
+    images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
+    fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf}`,
+  },
+  clean: `./${ distPath }`
+};
 
-gulp.task('watch', gulp.series(
-        'clean',
-        gulp.parallel(watchJs, watchHtml, watchStyles, watchImg, watchPhp),
-        'serve'
-    )
-);
-
-gulp.task('default', gulp.parallel('watch'));
-
-
-function buildJs(cb) {
-    init.bundleJs(browserSync);
-    cb();
+export function handleHtml() {
+  return src(path.src.html, { base: srcPath })
+      .pipe(plumber())
+      .pipe(dest(path.build.html));
 }
 
-function watchJs(cb) {
-    init.bundleJs(browserSync, true);
-    cb();
+export function handleCss() {
+  return src(path.src.css, { base: `${ srcPath }assets/scss/` })
+      .pipe(plumber())
+      .pipe(sass())
+      .pipe(autoprefixer())
+      .pipe(cssbeautify())
+      .pipe(dest(path.build.css))
+      .pipe(cssnano({
+        zindex: false,
+        discardComments: {
+          removeAll: true
+        }
+      }))
+      .pipe(removeCssComments())
+      .pipe(rename({
+        suffix: ".min",
+        extname: ".css"
+      }))
+      .pipe(dest(path.build.css));
 }
 
-function buildHtml(cb) {
-    init.pipeHtml(browserSync);
-    cb();
+export function handleJs() {
+  return src(path.src.js, { base: `${ srcPath }assets/js/` })
+      .pipe(plumber())
+      .pipe(rigger())
+      .pipe(dest(path.build.js))
+      .pipe(uglify())
+      .pipe(rename({
+        suffix: ".min",
+        extname: ".js"
+      }))
+      .pipe(dest(path.build.js));
 }
 
-function watchHtml(cb) {
-    init.pipeHtml(browserSync, true);
-    cb();
+export function handleImages() {
+  return src(path.src.images, { base: `${ srcPath }assets/images/` })
+      .pipe(imagemin([
+        gifsicle({interlaced: true}),
+        mozjpeg({quality: 75, progressive: true}),
+        optipng({optimizationLevel: 5}),
+        svgo({
+          plugins: [
+            {
+              name: 'removeViewBox',
+              active: true
+            },
+            {
+              name: 'cleanupIDs',
+              active: false
+            }
+          ]
+        })
+      ]))
+      .pipe(dest(path.build.images));
 }
 
-function buildStyles(cb) {
-    init.pipeStyle(browserSync);
-    cb();
+async function del(path) {
+  return await deleteAsync(path);
 }
 
-function watchStyles(cb) {
-    init.pipeStyle(browserSync, true);
-    cb();
-}
 
-function buildImg(cb) {
-    init.pipeImg(browserSync);
-    cb();
-}
 
-function watchImg(cb) {
-    init.pipeImg(browserSync, true);
-    cb();
-}
+/*import('gulp-autoprefixer').then(autoprefixer => {
+  // теперь autoprefixer доступен здесь
+  exports.html = html;
+});*/
 
-function buildPhp(cb) {
-    init.pipePhp(browserSync);
-    cb();
-}
+//exports.html = html;
 
-function watchPhp(cb) {
-    init.pipePhp(browserSync, true);
-    cb();
-}
