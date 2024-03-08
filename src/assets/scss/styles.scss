@@ -6,13 +6,14 @@
 
 #root {
   max-width: $maxWidth;
-
   text-align: center;
-  background: url(http://subtlepatterns.com/patterns/light_noise_diagonal.png);
   margin: 0 auto;
   padding: 20px;
 
+  border: 1px solid red;
+
   h1 {
+    font-family: "StardosStencil-Bold", sans-serif;
     color: red;
     @include init-font(42px, 700);
   }

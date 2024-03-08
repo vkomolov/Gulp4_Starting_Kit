@@ -1,31 +1,21 @@
 @font-face {
   font: {
-    family: "Georgia-Regular";
+    family: "EuroFontC";
     weight: normal;
     style: normal;
   }
   src: local('☺');
-  src: url('../fonts/Georgia-Regular.ttf') format("truetype");
+  src: url("../fonts/EuroFontC/EurofontC.otf") format("truetype");
 }
 
 @font-face {
   font: {
-    family: "Georgia-Bold";
+    family: "Montserrat-Regular";
     weight: bold;
     style: normal;
   }
   src: local('☺');
-  src: url("../fonts/Georgia-Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font: {
-    family: "Georgia-Italic";
-    weight: normal;
-    style: italic;
-  }
-  src: local('☺');
-  src: url("../fonts/Georgia-Italic.ttf") format("truetype");
+  src: url("../fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -35,5 +25,5 @@
     style: normal;
   }
   src: local('☺');
-  src: url("../fonts/StardosStencil-Bold.ttf") format("truetype");
+  src: url("../fonts/Stardos/StardosStencil-Bold.ttf") format("truetype");
 }

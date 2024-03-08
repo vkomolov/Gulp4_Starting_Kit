@@ -39,14 +39,14 @@ const pathData = {
     css: `${ srcPath }assets/scss/*.scss`,
     js: `${ srcPath }assets/js/*.js`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
-    fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf}`,
+    fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf,otf}`,
   },
   watch: {
     html: `${ srcPath }*.html`,
     css: `${ srcPath }assets/scss/*.scss`,
     js: `${ srcPath }assets/js/*.js`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
-    fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf}`,
+    fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf,otf}`,
   },
   clean: `./${ distPath }`
 };
@@ -136,6 +136,7 @@ export function handleImages() {
 
 export function handleFonts() {
   return src(pathData.src.fonts, { base: `${ srcPath }assets/fonts/` })
+      .pipe(dest(pathData.build.fonts))
       .pipe(browserSync.reload({ stream: true }));
 }
 
