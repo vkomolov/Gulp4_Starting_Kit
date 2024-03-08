@@ -17,6 +17,7 @@ import panini from "panini";
 import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
 import { deleteAsync } from "del";
 import sync from "browser-sync";
+
 const browserSync = sync.create();
 const sass = gulpSass(sassAux);
 
@@ -61,6 +62,7 @@ export function handleHtml() {
         root: srcPath,
         layouts: srcPath + "templates/layouts/",
         partials: srcPath + "templates/partials/",
+        data: srcPath + "templates/data/"
       }))
       .pipe(htmlmin({ collapseWhitespace: true }))
       .pipe(dest(pathData.build.html))
