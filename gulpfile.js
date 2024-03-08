@@ -13,11 +13,10 @@ import uglify from "gulp-uglify";
 import plumber from "gulp-plumber";
 import notify from "gulp-notify";
 import htmlmin from "gulp-htmlmin";
-//import panini from "panini";
+import panini from "panini";
 import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
 import { deleteAsync } from "del";
 import sync from "browser-sync";
-
 const browserSync = sync.create();
 const sass = gulpSass(sassAux);
 
@@ -52,9 +51,16 @@ const pathData = {
 };
 
 export function handleHtml() {
+  panini.refresh();
+
   return src(pathData.src.html, { base: srcPath })
       .pipe(plumber({
         errorHandler: getErrorHandler("HTML Error")
+      }))
+      .pipe(panini({
+        root: srcPath,
+        layouts: srcPath + "templates/layouts/",
+        partials: srcPath + "templates/partials/",
       }))
       .pipe(htmlmin({ collapseWhitespace: true }))
       .pipe(dest(pathData.build.html))
@@ -147,6 +153,7 @@ export const buildFiles = gulp.series(
 );
 
 export const watch = gulp.series(buildFiles, watchFiles);
+gulp.task('default', watch);
 
 function watchFiles() {
   gulp.watch(pathData.watch.html, handleHtml);
