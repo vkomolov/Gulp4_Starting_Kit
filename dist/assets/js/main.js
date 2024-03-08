@@ -1,10 +1,6 @@
-import { Elem1 } from "./components/Elem1.js";
-import { Elem2 } from "./components/Elem2.js";
-import { log } from "./utils/index.js";
+'use strict';
+import { test } from "./partial/funcs.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const rootWrapper = document.getElementById("total-wrapper");
-  rootWrapper.appendChild(Elem1).appendChild(Elem2);
-
-  log(rootWrapper, "root-wrapper: ");
+  console.log(test());
 })

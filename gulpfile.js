@@ -12,7 +12,8 @@ import cssnano from "gulp-cssnano";
 import uglify from "gulp-uglify";
 import plumber from "gulp-plumber";
 import notify from "gulp-notify";
-import panini from "panini";
+import htmlmin from "gulp-htmlmin";
+//import panini from "panini";
 import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
 import { deleteAsync } from "del";
 import sync from "browser-sync";
@@ -50,21 +51,12 @@ const pathData = {
   clean: `./${ distPath }`
 };
 
-export function serve() {
-  browserSync.init({
-    server: {
-      browser: "chrome",
-      baseDir: `./${ distPath }`
-    },
-  })
-}
-
 export function handleHtml() {
   return src(pathData.src.html, { base: srcPath })
-      //.pipe(plumber())
       .pipe(plumber({
         errorHandler: getErrorHandler("HTML Error")
       }))
+      .pipe(htmlmin({ collapseWhitespace: true }))
       .pipe(dest(pathData.build.html))
       .pipe(browserSync.reload({ stream: true }));
 }
@@ -154,8 +146,7 @@ export const buildFiles = gulp.series(
     )
 );
 
-//export const watch = gulp.series(buildFiles, serve, watchFiles);
-export const watch = gulp.series(buildFiles, gulp.parallel(serve, watchFiles));
+export const watch = gulp.series(buildFiles, watchFiles);
 
 function watchFiles() {
   gulp.watch(pathData.watch.html, handleHtml);
