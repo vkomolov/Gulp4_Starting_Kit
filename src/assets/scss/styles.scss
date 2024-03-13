@@ -1,8 +1,8 @@
-@import "./partial/reset";
-@import "./partial/fonts";
-@import "./partial/animations";
-@import "./partial/mixins";
-@import "./partial/variables";
+@import "./global_styles/reset";
+@import "./global_styles/fonts";
+@import "./global_styles/animations";
+@import "./global_styles/mixins";
+@import "./global_styles/variables";
 
 #root {
   max-width: $maxWidth;
