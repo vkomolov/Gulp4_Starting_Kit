@@ -30,21 +30,21 @@ const pathData = {
   build: {
     html: distPath,
     css: `${ distPath }assets/css/`,
-    js: `${ distPath }assets/js/`,
+    js: `${ distPath }js/`,
     images: `${ distPath }assets/images/`,
     fonts: `${ distPath }assets/fonts/`,
   },
   src: {
     html: `${ srcPath }*.html`,
     css: `${ srcPath }assets/scss/*.scss`,
-    js: `${ srcPath }assets/js/*.js`,
+    js: `${ srcPath }js/**/*.js`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
     fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf,otf}`,
   },
   watch: {
-    html: `${ srcPath }*.html`,
-    css: `${ srcPath }assets/scss/*.scss`,
-    js: `${ srcPath }assets/js/*.js`,
+    html: `${ srcPath }**/*.html`,
+    css: `${ srcPath }assets/scss/**/*.scss`,
+    js: `${ srcPath }js/**/*.js`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
     fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf,otf}`,
   },
@@ -95,7 +95,7 @@ export function handleCss() {
 }
 
 export function handleJs() {
-  return src(pathData.src.js, { base: `${ srcPath }assets/js/` })
+  return src(pathData.src.js, { base: `${ srcPath }js/` })
       //.pipe(plumber())
       .pipe(plumber({
         errorHandler: getErrorHandler("JS Error")

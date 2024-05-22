@@ -3,7 +3,7 @@
   "name": "gulp-starting-kit",
   "version": "2.0.0",
   "description": "Starting Kit for gulp piping",
-  "main": "gulpfile_require.js",
+  "main": "gulpfile.js",
   "author": "vkomolov.ua@gmail.com",
   "license": "ISC",
   "devDependencies": {
