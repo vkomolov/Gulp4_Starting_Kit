@@ -349,7 +349,7 @@ legend {
   font-weight: normal;
   font-style: normal;
   src: local("☺");
-  src: url("../fonts/EuroFontC/EuroFontC.otf") format("truetype");
+  src: url("../assets/fonts/EuroFontC/EuroFontC.otf") format("truetype");
 }
 
 @font-face {
@@ -357,7 +357,7 @@ legend {
   font-weight: normal;
   font-style: normal;
   src: local("☺");
-  src: url("../fonts/StardosStencil-Regular.ttf") format("truetype");
+  src: url("../assets/fonts/Stardos/StardosStencil-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -365,15 +365,7 @@ legend {
   font-weight: normal;
   font-style: normal;
   src: local("☺");
-  src: url("../fonts/Montserrat/Montserrat-Regular.otf") format("truetype");
-}
-
-@font-face {
-    font-family: "Vollkorn-Regular";
-  font-weight: normal;
-  font-style: normal;
-  src: local("☺");
-  src: url("../fonts/Vollkorn/Vollkorn-Regular.ttf") format("truetype");
+  src: url("../assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 }
 
 @keyframes popup {

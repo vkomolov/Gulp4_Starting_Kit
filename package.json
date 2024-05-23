@@ -6,6 +6,10 @@
   "main": "gulpfile.js",
   "author": "vkomolov.ua@gmail.com",
   "license": "ISC",
+  "scripts": {
+    "dev": "gulp watch",
+    "build": "gulp buildFiles"
+  },
   "devDependencies": {
     "browser-sync": "^3.0.2",
     "del": "^7.1.0",

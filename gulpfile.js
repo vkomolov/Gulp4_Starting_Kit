@@ -29,21 +29,21 @@ const distPath = "dist/"
 const pathData = {
   build: {
     html: distPath,
-    css: `${ distPath }assets/css/`,
+    css: `${ distPath }css/`,
     js: `${ distPath }js/`,
     images: `${ distPath }assets/images/`,
     fonts: `${ distPath }assets/fonts/`,
   },
   src: {
     html: `${ srcPath }*.html`,
-    css: `${ srcPath }assets/scss/*.scss`,
+    css: `${ srcPath }scss/*.scss`,
     js: `${ srcPath }js/**/*.js`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
     fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf,otf}`,
   },
   watch: {
     html: `${ srcPath }**/*.html`,
-    css: `${ srcPath }assets/scss/**/*.scss`,
+    css: `${ srcPath }scss/**/*.scss`,
     js: `${ srcPath }js/**/*.js`,
     images: `${ srcPath }assets/images/**/*.{jpg,png,svg,gif,ico,webp,xml,json,webmanifest}`,
     fonts: `${ srcPath }assets/fonts/**/*.{eot,woff,woff2,ttf,otf}`,
@@ -70,7 +70,7 @@ export function handleHtml() {
 }
 
 export function handleCss() {
-  return src(pathData.src.css, { base: `${ srcPath }assets/scss/` })
+  return src(pathData.src.css, { base: `${ srcPath }scss/` })
       //.pipe(plumber())
       .pipe(plumber({
         errorHandler: getErrorHandler("SCSS Error")
@@ -156,7 +156,6 @@ export const buildFiles = gulp.series(
 );
 
 export const watch = gulp.series(buildFiles, watchFiles);
-gulp.task('default', watch);
 
 function watchFiles() {
   gulp.watch(pathData.watch.html, handleHtml);

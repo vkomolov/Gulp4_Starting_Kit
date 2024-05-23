@@ -1,4 +1,6 @@
-# Gulp 4 Front-End package "gulp": "^4.0.2"
+## Gulp 4 Front-End package 
+### Gulp version: "^4.0.2" !
+### Node version: "20.10.0" !
 
 Task: to compile the npm plugins in production of HTML, CSS, JS, PHP and IMAGES files.
 
@@ -23,10 +25,10 @@ Task: to compile the npm plugins in production of HTML, CSS, JS, PHP and IMAGES 
 ### Getting Started:
 
 - just clone the rep, then run 'npm install' for dependencies;
-- 'gulp watch': please, init in the console for the single build of
+- 'npm run dev': please, init in the console for the single build of
   the target files, starting Browser and following watching of the
   files to be changed;
-- 'gulp build': please, init in the console for the single build of
+- 'npm run build': please, init in the console for the single build of
   the target files and starting Browser. The following changes of the
   target files will not be checked;
 
@@ -38,30 +40,45 @@ Task: to compile the npm plugins in production of HTML, CSS, JS, PHP and IMAGES 
      |-- css
         main.css        //piped with dependencies
         main.min.css    //to be linked to *.html
-     |-- fonts
-     |-- img            //already compressed files
+
+     |-- assets 
+        |-- fonts
+        |-- images      //already compressed files
+
      |-- js
+        |-- partial     //partial js files
         main.js
-        main.js.map     //mapping of js file
         main.min.js     //to be linked to *.html
-     index.html         //minimized html
+
+     main.html         //minimized html
 |-- src
-     |-- scss
-        |-- partial
-            _mixins.scss
-            .......
-        main.scss
-     |-- img         //initial image files to be compressed
-     |-- js
+    |-- assets
+        |-- fonts
+        |-- images
+
+    |-- js
         |-- partial
             funcs.js
             .......
         main.js                 //*.js will be piped from here
-     |-- utils
-         funcCollection.js   //for gulp tasks
-         pathMap.js   
-     index.html                 //*.html will be piped from here
-gulpfile_require.js
+
+    |-- scss
+        |-- global_styles
+            _mixins.scss
+            .......
+        styles.scss
+
+    |-- templates
+        |-- data
+         dataRu.json   //json data
+         ...        
+        |-- layouts            //*.html layouts
+        |-- partials            //*.html partials
+
+    main.html                 //*.html will be piped from here
+
+.gitignore
+gulpfile.js
 package.json
 package-lock.json
 README.md
